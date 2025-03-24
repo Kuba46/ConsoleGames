@@ -1,5 +1,5 @@
 import os
-
+from PyQt6.QtWidgets import QMessageBox
 
 class StatusCheck:
     @staticmethod
@@ -18,3 +18,4 @@ class StatusCheck:
                     exit()
             except ValueError as err:
                 print(err)
+

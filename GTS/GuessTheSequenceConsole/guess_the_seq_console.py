@@ -1,10 +1,27 @@
-from seq_factory import RandomStrategyFactory
+from GTS.base_gts import GuessTheSeqBase
+from rand_seq_factory import RandomStrategyFactory
 from check_status import StatusCheck
 
 
-class GuessTheSeq:
+class GuessTheSeqConsole(GuessTheSeqBase):
+    def start_game(self):
+        self.play_game([])
+
+    def get_user_input(self, prompt):
+        return int(input(prompt))
+
+    def display_message(self, message):
+        print(message)
+
     @staticmethod
-    def play_guess_seq():
+    def string_to_int(string):
+        try:
+            return int(string)
+        except ValueError:
+            print("Invalid input! Please enter a valid integer string.")
+            return None
+
+    def play_game(self, original_list):
         play = True
         while play:
             print('')
@@ -16,21 +33,26 @@ class GuessTheSeq:
             factory = RandomStrategyFactory()
             strategy = factory.create_strategy()
             original_list = strategy.generate()
+
             print(f"Generated sequence: {original_list}")
 
             user_list = []
             sorted_list = sorted(original_list)
 
             while len(user_list) < len(original_list):
-                user_input = int(input("Enter your number: "))
+                user_input = self.string_to_int(input("Enter a number: "))
+
+                if user_input == "":
+                    print("You must enter a number!")
+                    continue
 
                 if user_input not in original_list or user_input in user_list:
-                    print("Error! Try again!")
+                    print("Enter something from given sequence!")
                     break
 
                 if len(user_list) == 0:
                     if user_input != original_list[0] and user_input != min(original_list):
-                        print("Error! Try again!")
+                        print("Error! You selected the wrong number! Try again!")
                         break
                 else:
                     if user_input != original_list[len(user_list)] and user_input != sorted_list[len(user_list)]:

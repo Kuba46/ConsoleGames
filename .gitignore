@@ -2,10 +2,13 @@
 ### Example user template
 
 # IntelliJ project files
-.idea
+/.idea
 *.iml
 out
 gen
+.venv
+__pycache__
+
 
 ### Eclipse ###
 .apt_generated
@@ -31,3 +34,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### My Ignores ###
+/GamesLauncher
